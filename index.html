@@ -271,8 +271,8 @@
   <section id="workflow" class="section wrap" aria-labelledby="wf-title">
     <header class="section__head">
       <p class="index">03 · Workflow</p>
-      <h2 id="wf-title">How do eight agents help you?</h2>
-      <p class="section__lead">I write code in Antigravity and pair with Claude Code. An orchestrator agent hands each piece of a task to one specialist, one owner per file, and nothing is called done before the review gate.</p>
+      <h2 id="wf-title">How do 10 agents help you?</h2>
+      <p class="section__lead">I write code in VS Code and pair with Claude Code. An orchestrator agent hands each piece of a task to one specialist, one owner per file, and nothing is called done before the review gate.</p>
     </header>
 
     <figure class="agents reveal">
@@ -284,12 +284,14 @@
       </div>
       <ol class="agents__list" aria-label="Specialist agents in run order">
         <li class="ag ag--sonnet"><b>1</b>researcher<em>Sonnet</em></li>
-        <li class="ag ag--opus"><b>2</b>developer<em>Opus</em></li>
-        <li class="ag ag--sonnet"><b>2</b>tester<em>Sonnet</em></li>
+        <li class="ag ag--sonnet"><b>2</b>data-developer<em>Sonnet</em></li>
+        <li class="ag ag--opus"><b>3</b>ui-developer<em>Opus</em></li>
+        <li class="ag ag--sonnet"><b>3</b>tester<em>Sonnet</em></li>
+        <li class="ag ag--haiku"><b>4</b>documenter<em>Haiku</em></li>
+        <li class="ag ag--opus"><b>5</b>lensa-reviewer<em>Opus</em><span class="ag__note">findings → ui-developer</span></li>
         <li class="ag ag--sonnet"><b></b>release-engineer<em>Sonnet</em></li>
-        <li class="ag ag--haiku"><b>3</b>documenter<em>Haiku</em></li>
-        <li class="ag ag--sonnet"><b>4</b>lensa-reviewer<em>Sonnet</em><span class="ag__note">findings → developer</span></li>
         <li class="ag ag--sonnet"><b></b>ticket-manager<em>Sonnet</em></li>
+        <li class="ag ag--opus"><b></b>project-manager<em>Opus</em></li>
       </ol>
       <figcaption>
         <span class="key key--opus">Opus</span>
@@ -304,12 +306,14 @@
       <tbody>
         <tr><th scope="row">orchestrator</th><td data-label="Model">Opus</td><td data-label="Owns">Splits the task, dispatches specialists, reconciles results</td></tr>
         <tr><th scope="row">researcher</th><td data-label="Model">Sonnet</td><td data-label="Owns">Where code lives, how a flow works, the ticket and API contract</td></tr>
-        <tr><th scope="row">developer</th><td data-label="Model">Opus</td><td data-label="Owns">Production code, including native Android and iOS source</td></tr>
+        <tr><th scope="row">data-developer</th><td data-label="Model">Sonnet</td><td data-label="Owns">API clients, models, repositories, services, DI, native source</td></tr>
+        <tr><th scope="row">ui-developer</th><td data-label="Model">Opus</td><td data-label="Owns">Pages, widgets, controllers, bindings, animations, routes</td></tr>
         <tr><th scope="row">tester</th><td data-label="Model">Sonnet</td><td data-label="Owns">Unit, widget and controller tests, mocks, coverage</td></tr>
-        <tr><th scope="row">release-engineer</th><td data-label="Model">Sonnet</td><td data-label="Owns">CI, fastlane, Gradle, Podfile, Xcode, signing</td></tr>
         <tr><th scope="row">documenter</th><td data-label="Model">Haiku</td><td data-label="Owns">README, project rules, analytics event registry</td></tr>
-        <tr><th scope="row">lensa-reviewer</th><td data-label="Model">Sonnet</td><td data-label="Owns">Self-review against the merge quality gate</td></tr>
+        <tr><th scope="row">lensa-reviewer</th><td data-label="Model">Opus</td><td data-label="Owns">Self-review against the merge quality gate, read-only</td></tr>
+        <tr><th scope="row">release-engineer</th><td data-label="Model">Sonnet</td><td data-label="Owns">CI, fastlane, Gradle, Podfile, Xcode, signing, dependencies</td></tr>
         <tr><th scope="row">ticket-manager</th><td data-label="Model">Sonnet</td><td data-label="Owns">Creating and splitting tickets in YouTrack</td></tr>
+        <tr><th scope="row">project-manager</th><td data-label="Model">Opus</td><td data-label="Owns">Plans, reports, retros and tuning the agents themselves</td></tr>
       </tbody>
     </table>
   </section>
