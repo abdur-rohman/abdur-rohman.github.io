@@ -279,13 +279,13 @@
       <div class="agents__route" aria-hidden="true">
         <span class="node node--you">you</span>
         <span class="wire"></span>
-        <span class="node node--orch">orchestrator<small>inherits model, routes work</small></span>
+        <span class="node node--orch">orchestrator<small>inherits model (Opus, Fable), routes work</small></span>
         <span class="wire"></span>
       </div>
       <ol class="agents__list" aria-label="Specialist agents in run order">
         <li class="ag ag--haiku"><b>1</b>researcher<em>Haiku</em></li>
         <li class="ag ag--sonnet"><b>2</b>data-developer<em>Sonnet</em></li>
-        <li class="ag ag--sonnet"><b>3</b>ui-developer<em>Sonnet</em></li>
+        <li class="ag ag--opus"><b>3</b>ui-developer<em>Inherits</em></li>
         <li class="ag ag--sonnet"><b>3</b>tester<em>Sonnet</em></li>
         <li class="ag ag--sonnet"><b>4</b>lensa-reviewer<em>Sonnet</em><span class="ag__note">findings → owners</span></li>
         <li class="ag ag--sonnet"><b></b>release-engineer<em>Sonnet</em></li>
@@ -293,7 +293,7 @@
         <li class="ag ag--sonnet"><b></b>project-manager<em>Sonnet</em></li>
       </ol>
       <figcaption>
-        <span class="key key--opus">Opus</span>
+        <span class="key key--opus">Inherits (Opus, Fable)</span>
         <span class="key key--sonnet">Sonnet</span>
         <span class="key key--haiku">Haiku</span>
         <span>Numbers give the run order; unnumbered agents run on demand.</span>
@@ -306,7 +306,7 @@
         <tr><th scope="row">orchestrator</th><td data-label="Model">Inherits</td><td data-label="Owns">Splits the task, dispatches specialists, reconciles results</td></tr>
         <tr><th scope="row">researcher</th><td data-label="Model">Haiku</td><td data-label="Owns">Where code lives, how a flow works, the ticket and API contract, read-only</td></tr>
         <tr><th scope="row">data-developer</th><td data-label="Model">Sonnet</td><td data-label="Owns">API clients, models, repositories, services, DI, native source</td></tr>
-        <tr><th scope="row">ui-developer</th><td data-label="Model">Sonnet</td><td data-label="Owns">Pages, widgets, controllers, bindings, animations, routes</td></tr>
+        <tr><th scope="row">ui-developer</th><td data-label="Model">Inherits</td><td data-label="Owns">Pages, widgets, controllers, bindings, animations, routes</td></tr>
         <tr><th scope="row">tester</th><td data-label="Model">Sonnet</td><td data-label="Owns">Everything under test/: unit, widget and controller tests, mocks, coverage</td></tr>
         <tr><th scope="row">lensa-reviewer</th><td data-label="Model">Sonnet</td><td data-label="Owns">Self-review against the merge quality gate, read-only, writes the MR description</td></tr>
         <tr><th scope="row">release-engineer</th><td data-label="Model">Sonnet</td><td data-label="Owns">CI, fastlane, Gradle, Podfile, Xcode, signing, dependencies</td></tr>
