@@ -11,36 +11,26 @@
   --gutter: clamp(20px, 4vw, 40px);
   --ease: cubic-bezier(.2, .7, .2, 1);
 
-  color-scheme: light;
-  --bg: #fafafa;
-  --surface: #ffffff;
-  --surface-2: #f4f4f5;
-  --ink: #09090b;
-  --ink-2: #3f3f46;
-  --muted: #52525b;
-  --line: #e4e4e7;
-  --line-strong: #18181b;
-  --accent: #2563eb;
-  --accent-ink: #ffffff;
-  --accent-soft: #eef3ff;
-  --focus: #2563eb;
-  --shadow: 0 1px 0 rgba(9, 9, 11, .04), 0 12px 32px -12px rgba(9, 9, 11, .18);
-}
-[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0a0a0b;
-  --surface: #131316;
-  --surface-2: #1b1b1f;
-  --ink: #fafafa;
-  --ink-2: #d4d4d8;
-  --muted: #a1a1aa;
-  --line: #27272a;
-  --line-strong: #e4e4e7;
-  --accent: #7aa2ff;
-  --accent-ink: #0a0a0b;
-  --accent-soft: #151d33;
-  --focus: #9db9ff;
-  --shadow: 0 1px 0 rgba(255, 255, 255, .03), 0 16px 40px -16px rgba(0, 0, 0, .7);
+  color-scheme: light dark;
+  --bg: light-dark(#fafafa, #0a0a0b);
+  --surface: light-dark(#ffffff, #131316);
+  --surface-2: light-dark(#f4f4f5, #1b1b1f);
+  --ink: light-dark(#09090b, #fafafa);
+  --ink-2: light-dark(#3f3f46, #d4d4d8);
+  --muted: light-dark(#52525b, #a1a1aa);
+  --line: light-dark(#e4e4e7, #27272a);
+  --line-strong: light-dark(#18181b, #e4e4e7);
+  --accent: light-dark(#2563eb, #7aa2ff);
+  --accent-ink: light-dark(#ffffff, #0a0a0b);
+  --accent-soft: light-dark(#eef3ff, #151d33);
+  --focus: light-dark(#2563eb, #9db9ff);
+  --shadow-a: light-dark(rgba(9, 9, 11, .04), rgba(255, 255, 255, .03));
+  --shadow-b: light-dark(rgba(9, 9, 11, .18), rgba(0, 0, 0, .7));
+  --shadow: 0 1px 0 var(--shadow-a), 0 12px 32px -12px var(--shadow-b); /* light-dark() takes colors only */
+
+  /* Toggle override lives in <meta name="color-scheme">; map it to the property. */
+  &:has(> head > meta[name="color-scheme"][content="dark"]) { color-scheme: dark; }
+  &:has(> head > meta[name="color-scheme"][content="light"]) { color-scheme: light; }
 }
 
 /* ---------- Base ---------- */
@@ -88,7 +78,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   transition: color .15s, background-color .15s;
 }
 .menu a:hover { color: var(--ink); background: var(--surface-2); }
-.menu a[aria-current="true"] { color: var(--ink); background: var(--surface-2); box-shadow: inset 0 -2px 0 var(--accent); }
+.menu ul { scroll-target-group: auto; }
+.menu a:is([aria-current="true"], :target-current) { color: var(--ink); background: var(--surface-2); box-shadow: inset 0 -2px 0 var(--accent); }
 
 /* Desktop: script.js keeps the details open; summary hidden only when JS runs */
 @media (min-width: 900px) {
@@ -118,7 +109,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 .theme:hover { border-color: var(--line-strong); }
 .theme:active { transform: scale(.97); }
-[data-theme="light"] .i-sun, [data-theme="dark"] .i-moon { display: none; }
+.i-sun { display: none; }
+@media (prefers-color-scheme: dark) { .i-moon { display: none; } .i-sun { display: inline; } }
+:root:has(> head > meta[name="color-scheme"][content="dark"]) { .i-moon { display: none; } .i-sun { display: inline; } }
+:root:has(> head > meta[name="color-scheme"][content="light"]) { .i-moon { display: inline; } .i-sun { display: none; } }
 @media (max-width: 480px) { .theme__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } .theme { padding: 0 var(--s3); } }
 
 /* ---------- Shared bits ---------- */

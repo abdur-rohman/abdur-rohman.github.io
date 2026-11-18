@@ -8,6 +8,7 @@
 <meta name="author" content="Abdur Rohman">
 <meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="tbpKK89TEEohblgIo9hpyIRP4wd-tPZcvXAH0CvpAgw">
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://abdur-rohman.github.io/">
@@ -29,14 +30,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="styles.css">
 <script>
-  // Set theme before paint to avoid a flash. Stored choice wins, else system.
-  (function () {
-    var t = null;
-    try { t = localStorage.getItem('theme'); } catch (e) {}
-    if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    document.documentElement.dataset.theme = t;
-    document.documentElement.classList.add('js');
-  })();
+  // Apply a stored override before paint to avoid a flash. No stored value = follow system.
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'light' || t === 'dark') document.querySelector('meta[name="color-scheme"]').content = t;
+  } catch (e) {}
+  document.documentElement.classList.add('js');
 </script>
 <script src="script.js" defer></script>
 </head>
@@ -93,7 +92,7 @@
   </section>
 
   <!-- Work -->
-  <section id="work" class="section wrap" aria-labelledby="work-title">
+  <section id="work" tabindex="-1" class="section wrap" aria-labelledby="work-title">
     <header class="section__head">
       <p class="index">01 · Work</p>
       <h2 id="work-title">Which apps run your code?</h2>
@@ -223,7 +222,7 @@
   </section>
 
   <!-- Experience -->
-  <section id="experience" class="section wrap" aria-labelledby="exp-title">
+  <section id="experience" tabindex="-1" class="section wrap" aria-labelledby="exp-title">
     <header class="section__head">
       <p class="index">02 · Experience</p>
       <h2 id="exp-title">Who have you shipped for?</h2>
@@ -268,7 +267,7 @@
   </section>
 
   <!-- Workflow -->
-  <section id="workflow" class="section wrap" aria-labelledby="wf-title">
+  <section id="workflow" tabindex="-1" class="section wrap" aria-labelledby="wf-title">
     <header class="section__head">
       <p class="index">03 · Workflow</p>
       <h2 id="wf-title">How do 9 agents help you?</h2>
@@ -317,7 +316,7 @@
   </section>
 
   <!-- Stack -->
-  <section id="stack" class="section wrap" aria-labelledby="stack-title">
+  <section id="stack" tabindex="-1" class="section wrap" aria-labelledby="stack-title">
     <header class="section__head">
       <p class="index">04 · Stack</p>
       <h2 id="stack-title">Flutter only, or more?</h2>
@@ -331,7 +330,7 @@
   </section>
 
   <!-- Open source -->
-  <section id="open-source" class="section wrap" aria-labelledby="os-title">
+  <section id="open-source" tabindex="-1" class="section wrap" aria-labelledby="os-title">
     <header class="section__head section__head--row">
       <div>
         <p class="index">05 · Open source</p>
@@ -350,7 +349,7 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="section wrap" aria-labelledby="contact-title">
+  <section id="contact" tabindex="-1" class="section wrap" aria-labelledby="contact-title">
     <header class="section__head">
       <p class="index">06 · Contact</p>
       <h2 id="contact-title">Can I hire you?</h2>
