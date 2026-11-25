@@ -16,12 +16,23 @@
   function apply(t) { meta.content = t || 'light dark'; sync(); }
   sync();
   dark.addEventListener('change', sync);
+  var still = matchMedia('(prefers-reduced-motion: reduce)');
   btn.addEventListener('click', function () {
     var target = rendered() === 'dark' ? 'light' : 'dark';
     // Store only a real override; undoing back to the system value clears it.
     var override = target === (dark.matches ? 'dark' : 'light') ? null : target;
     try { override ? localStorage.setItem('theme', override) : localStorage.removeItem('theme'); } catch (e) {}
-    apply(override);
+    if (!document.startViewTransition || still.matches) { apply(override); return; }
+    // New theme grows out of the button as a circle.
+    var r = btn.getBoundingClientRect();
+    var x = r.left + r.width / 2, y = r.top + r.height / 2;
+    var end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    document.startViewTransition(function () { apply(override); }).ready.then(function () {
+      root.animate(
+        { clipPath: ['circle(0 at ' + x + 'px ' + y + 'px)', 'circle(' + end + 'px at ' + x + 'px ' + y + 'px)'] },
+        { duration: 550, easing: 'cubic-bezier(.16, 1, .3, 1)', pseudoElement: '::view-transition-new(root)' }
+      );
+    }).catch(function () {});
   });
   window.addEventListener('storage', function (e) {
     if (e.key === 'theme') apply(e.newValue === 'light' || e.newValue === 'dark' ? e.newValue : null);
@@ -44,11 +55,13 @@
     return;
   }
 
-  // Reveal on scroll (CSS disables the effect under reduced motion).
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
-  }, { rootMargin: '0px 0px -8% 0px' });
-  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  // Reveal on scroll, only where CSS scroll-driven animations are missing (html.sda handles the rest).
+  if (!root.classList.contains('sda')) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  }
 
   // Highlight the nav link of the section in view: CSS :target-current styles it, JS mirrors aria-current.
   if (CSS.supports('scroll-target-group: auto')) {

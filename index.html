@@ -9,8 +9,8 @@
 <meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="tbpKK89TEEohblgIo9hpyIRP4wd-tPZcvXAH0CvpAgw">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f4f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://abdur-rohman.github.io/">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Abdur Rohman — Senior Mobile Developer · Flutter">
@@ -27,7 +27,7 @@
 <link rel="apple-touch-icon" href="apple-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="styles.css">
 <script>
   // Apply a stored override before paint to avoid a flash. No stored value = follow system.
@@ -36,6 +36,8 @@
     if (t === 'light' || t === 'dark') document.querySelector('meta[name="color-scheme"]').content = t;
   } catch (e) {}
   document.documentElement.classList.add('js');
+  // Scroll-driven reveals when supported; script.js falls back to IntersectionObserver otherwise.
+  if (window.CSS && CSS.supports('animation-timeline: view()')) document.documentElement.classList.add('sda');
 </script>
 <script src="script.js" defer></script>
 </head>
@@ -43,8 +45,9 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="bar">
+  <div class="progress" aria-hidden="true"></div>
   <div class="wrap bar__in">
-    <a class="brand" href="#top">Abdur Rohman</a>
+    <a class="brand" href="#top"><span class="brand__mark" aria-hidden="true">AR</span>Abdur Rohman</a>
     <nav class="nav" aria-label="Sections">
       <details class="menu">
         <summary>Menu</summary>
@@ -71,7 +74,7 @@
   <!-- Hero -->
   <section class="hero wrap" aria-labelledby="hero-title">
     <div class="hero__text">
-      <p class="eyebrow">Senior Mobile Developer · Flutter</p>
+      <p class="eyebrow"><span class="pulse" aria-hidden="true"></span>Senior Mobile Developer · Flutter</p>
       <h1 id="hero-title">Who is Abdur Rohman?</h1>
       <p class="lead">Five years of mobile apps for AJobThing, IDN Media, Telkomsel and Mitsubishi.</p>
       <div class="actions">
@@ -271,46 +274,54 @@
     <header class="section__head">
       <p class="index">03 · Workflow</p>
       <h2 id="wf-title">How do 9 agents help you?</h2>
-      <p class="section__lead">I write code in VS Code and pair with Claude Code. An orchestrator agent hands each piece of a task to one specialist, one owner per file, and nothing is called done before the review gate.</p>
+      <p class="section__lead">I write code in VS Code and pair with Claude Code. An orchestrator agent hands each piece of a task to one specialist, one owner per file. Every agent checks its plan with an advisor, and nothing is called done before the review gate.</p>
     </header>
 
-    <figure class="agents reveal">
-      <div class="agents__route" aria-hidden="true">
+    <figure class="map reveal">
+      <div class="map__route">
         <span class="node node--you">you</span>
-        <span class="wire"></span>
+        <span class="wire" aria-hidden="true"></span>
         <span class="node node--orch">orchestrator<small>inherits model (Opus, Fable), routes work</small></span>
-        <span class="wire"></span>
+        <span class="wire wire--dash" aria-hidden="true"></span>
+        <span class="node node--adv">advisor<small>stronger reviewer model, reads the whole transcript</small></span>
       </div>
-      <ol class="agents__list" aria-label="Specialist agents in run order">
-        <li class="ag ag--haiku"><b>1</b>researcher<em>Haiku</em></li>
-        <li class="ag ag--sonnet"><b>2</b>data-developer<em>Sonnet</em></li>
-        <li class="ag ag--opus"><b>3</b>ui-developer<em>Inherits</em></li>
-        <li class="ag ag--sonnet"><b>3</b>tester<em>Sonnet</em></li>
-        <li class="ag ag--sonnet"><b>4</b>lensa-reviewer<em>Sonnet</em><span class="ag__note">findings → owners</span></li>
-        <li class="ag ag--sonnet"><b></b>release-engineer<em>Sonnet</em></li>
-        <li class="ag ag--haiku"><b></b>ticket-manager<em>Haiku</em></li>
-        <li class="ag ag--sonnet"><b></b>project-manager<em>Sonnet</em></li>
-      </ol>
+      <div class="map__body">
+        <ol class="map__agents" aria-label="Specialist agents in run order">
+          <li class="ag ag--sonnet"><b>1</b>researcher<em>Sonnet</em></li>
+          <li class="ag ag--sonnet"><b>2</b>data-developer<em>Sonnet</em></li>
+          <li class="ag ag--opus"><b>3</b>ui-developer<em>Inherits</em></li>
+          <li class="ag ag--sonnet"><b>3</b>tester<em>Sonnet</em></li>
+          <li class="ag ag--sonnet"><b>4</b>lensa-reviewer<em>Sonnet</em><span class="ag__note">findings → owners</span></li>
+          <li class="ag ag--sonnet"><b></b>release-engineer<em>Sonnet</em></li>
+          <li class="ag ag--haiku"><b></b>ticket-manager<em>Haiku</em></li>
+          <li class="ag ag--sonnet"><b></b>project-manager<em>Sonnet</em></li>
+        </ol>
+        <ul class="map__checks" aria-label="When agents ask the advisor">
+          <li><b>orchestrator</b>before a fan-out, when reports conflict, before the final report</li>
+          <li><b>specialists</b>before choosing an approach, when an error repeats, before reporting done</li>
+        </ul>
+      </div>
       <figcaption>
         <span class="key key--opus">Inherits (Opus, Fable)</span>
         <span class="key key--sonnet">Sonnet</span>
         <span class="key key--haiku">Haiku</span>
+        <span class="key key--adv">Advisor checkpoint</span>
         <span>Numbers give the run order; unnumbered agents run on demand.</span>
       </figcaption>
     </figure>
 
     <table class="owners reveal">
-      <thead><tr><th scope="col">Agent</th><th scope="col">Model</th><th scope="col">Owns</th></tr></thead>
+      <thead><tr><th scope="col">Agent</th><th scope="col">Model</th><th scope="col">Owns</th><th scope="col">Asks the advisor</th></tr></thead>
       <tbody>
-        <tr><th scope="row">orchestrator</th><td data-label="Model">Inherits</td><td data-label="Owns">Splits the task, dispatches specialists, reconciles results</td></tr>
-        <tr><th scope="row">researcher</th><td data-label="Model">Haiku</td><td data-label="Owns">Where code lives, how a flow works, the ticket and API contract, read-only</td></tr>
-        <tr><th scope="row">data-developer</th><td data-label="Model">Sonnet</td><td data-label="Owns">API clients, models, repositories, services, DI, native source</td></tr>
-        <tr><th scope="row">ui-developer</th><td data-label="Model">Inherits</td><td data-label="Owns">Pages, widgets, controllers, bindings, animations, routes</td></tr>
-        <tr><th scope="row">tester</th><td data-label="Model">Sonnet</td><td data-label="Owns">Everything under test/: unit, widget and controller tests, mocks, coverage</td></tr>
-        <tr><th scope="row">lensa-reviewer</th><td data-label="Model">Sonnet</td><td data-label="Owns">Self-review against the merge quality gate, read-only, writes the MR description</td></tr>
-        <tr><th scope="row">release-engineer</th><td data-label="Model">Sonnet</td><td data-label="Owns">CI, fastlane, Gradle, Podfile, Xcode, signing, dependencies</td></tr>
-        <tr><th scope="row">ticket-manager</th><td data-label="Model">Haiku</td><td data-label="Owns">Creating and splitting tickets in YouTrack</td></tr>
-        <tr><th scope="row">project-manager</th><td data-label="Model">Sonnet</td><td data-label="Owns">Plans, reports, retros, README and tuning the agents themselves</td></tr>
+        <tr><th scope="row">orchestrator</th><td data-label="Model">Inherits</td><td data-label="Owns">Splits the task, dispatches specialists, reconciles results</td><td data-label="Advisor">Before a fan-out, on conflicting reports, before the final report</td></tr>
+        <tr><th scope="row">researcher</th><td data-label="Model">Sonnet</td><td data-label="Owns">Where code lives, how a flow works, the ticket and API contract, read-only</td><td data-label="Advisor">Before a conclusion, before reporting</td></tr>
+        <tr><th scope="row">data-developer</th><td data-label="Model">Sonnet</td><td data-label="Owns">API clients, models, repositories, services, DI, native source</td><td data-label="Advisor">Before an approach, on a repeated error, before done</td></tr>
+        <tr><th scope="row">ui-developer</th><td data-label="Model">Inherits</td><td data-label="Owns">Pages, widgets, controllers, bindings, animations, routes</td><td data-label="Advisor">Before an approach, on a repeated error, before done</td></tr>
+        <tr><th scope="row">tester</th><td data-label="Model">Sonnet</td><td data-label="Owns">Everything under test/: unit, widget and controller tests, mocks, coverage</td><td data-label="Advisor">Before an approach, on a repeated error, before done</td></tr>
+        <tr><th scope="row">lensa-reviewer</th><td data-label="Model">Sonnet</td><td data-label="Owns">Self-review against the merge quality gate, read-only, writes the MR description</td><td data-label="Advisor">Before a conclusion, before reporting</td></tr>
+        <tr><th scope="row">release-engineer</th><td data-label="Model">Sonnet</td><td data-label="Owns">CI, fastlane, Gradle, Podfile, Xcode, signing, dependencies</td><td data-label="Advisor">Before an approach, on a repeated error, before done</td></tr>
+        <tr><th scope="row">ticket-manager</th><td data-label="Model">Haiku</td><td data-label="Owns">Creating and splitting tickets in YouTrack</td><td data-label="Advisor">Before an approach, on a repeated error, before done</td></tr>
+        <tr><th scope="row">project-manager</th><td data-label="Model">Sonnet</td><td data-label="Owns">Plans, reports, retros, README and tuning the agents themselves</td><td data-label="Advisor">Before an approach, on a repeated error, before done</td></tr>
       </tbody>
     </table>
   </section>
@@ -369,7 +380,7 @@
 
 <footer class="foot">
   <div class="wrap foot__in">
-    <p>Abdur Rohman, senior mobile developer in Yogyakarta, Indonesia. App screens are from each app's store listing and belong to their owners. Set in Bricolage Grotesque, Instrument Sans and JetBrains Mono. © 2026.</p>
+    <p>Abdur Rohman, senior mobile developer in Yogyakarta, Indonesia. App screens are from each app's store listing and belong to their owners. Set in Geist and Geist Mono. © 2026.</p>
     <a href="#top">Back to top</a>
   </div>
 </footer>
